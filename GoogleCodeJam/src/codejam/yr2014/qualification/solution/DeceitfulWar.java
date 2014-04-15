@@ -15,7 +15,7 @@ public class DeceitfulWar {
 
 			int warScore = playWar(a, b);
 			int decScore = playDecWar(a, b);
-			System.out.printf("Case #%DeceitfulWar: %DeceitfulWar %DeceitfulWar%n", t, decScore, warScore);
+			System.out.printf("Case #%d: %d %d%n", t, decScore, warScore);
 		}
 	}
 	static int playDecWar(double[] a, double[] b) {

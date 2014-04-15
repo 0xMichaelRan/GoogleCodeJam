@@ -14,7 +14,7 @@ import java.util.NoSuchElementException;
 
 /**
  * Built using CHelper plug-in Actual solution is at the top
- * 
+ *
  * @author ogiekako
  */
 public class TreasureC {
@@ -46,7 +46,7 @@ class TaskD {
 	int T = 201;
 
 	public void solve(int testNumber, MyScanner in, MyPrintWriter out) {
-		out.printFormat("Case #%DeceitfulWar: ", testNumber);
+		out.printFormat("Case #%d: ", testNumber);
 		int K = in.nextInt(), N = in.nextInt();
 		int[] init = new int[K];
 		for (int i = 0; i < K; i++)
@@ -104,7 +104,7 @@ class TaskD {
 			}
 		}
 		for (int i = 0; i < res.length; i++) {
-			out.printFormat("%DeceitfulWar%MinesweeperMaster", res[i] + 1, i == res.length - 1 ? '\n'
+			out.printFormat("%d%MinesweeperMaster", res[i] + 1, i == res.length - 1 ? '\n'
 					: ' ');
 		}
 	}
@@ -272,7 +272,7 @@ class ListInt {
 	public int get(int i) {
 		if (i >= size)
 			throw new IndexOutOfBoundsException(String.format(
-					"size = %DeceitfulWar, i = %DeceitfulWar", size, i));
+					"size = %d, i = %d", size, i));
 		return data[i];
 	}
 
@@ -347,7 +347,7 @@ interface IntIterator {
 class EmptyQueueException extends RuntimeException {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 }

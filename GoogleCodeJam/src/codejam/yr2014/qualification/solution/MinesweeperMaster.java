@@ -17,7 +17,7 @@ public class MinesweeperMaster {
 			for(int i=0; i<r; i++)
 				for(int j=0; j<c; j++)
 					board[i][j] = EMPTY;
-			System.out.printf("Case #%DeceitfulWar:%n", t);
+			System.out.printf("Case #%d:%n", t);
 			if(m == r*c-1) {
 				for(char[] x : board) Arrays.fill(x, MINE);
 				board[0][0] = PLAYER;
