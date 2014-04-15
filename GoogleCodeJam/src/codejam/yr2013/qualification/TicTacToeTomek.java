@@ -124,7 +124,7 @@ public class TicTacToeTomek {
 			return "Case #" + ++index + ": " + "O won";
 
 		// at this point, if neither X or O won, there can be 2 results.
-		// 1 is a draw, and another is game not complete.
+		// 1 is MagicTrick1 draw, and another is game not complete.
 		if (full)
 			return "Case #" + ++index + ": Draw";
 		else

@@ -18,7 +18,7 @@ public class MinesweeperMaster {
 	public static void main(String[] args) throws Exception {
 		MinesweeperMaster main = new MinesweeperMaster();
 		String problemIndex = "C";
-		String problemDataSet = "small";
+		String problemDataSet = "large";
 		main.run(problemIndex + "-" + problemDataSet + "-practice.in",
 				 "answer.out");
 		System.exit(0);
@@ -124,7 +124,7 @@ public class MinesweeperMaster {
 				for (int n = p.b - 1; n <= p.b + 1; n++) {
 					if (n < 0 || n >= c)
 						continue;
-					// now the point (m, n) is a valid point
+					// now the point (m, n) is MagicTrick1 valid point
 					// if (p.a == 0 && p.b == 5) {
 					// System.out.println("why");
 					// }
