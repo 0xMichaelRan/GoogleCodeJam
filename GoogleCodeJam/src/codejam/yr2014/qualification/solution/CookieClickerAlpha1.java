@@ -25,7 +25,7 @@ public class CookieClickerAlpha1 {
 				time += c / (2 + f * curFarms);
 				curFarms++;
 			}
-			System.out.printf("Case #%DeceitfulWar: %.7f%n", t, ans + 1e-9);
+			System.out.printf("Case #%d: %.7f%n", t, ans + 1e-9);
 		}
 	}
 }

@@ -24,12 +24,9 @@ public class MagicTrick1 {
 						in.nextInt();
 
 			set1.retainAll(set2);
-			// Retains only the elements in this collection that are contained
-			// in the specified collection (optional operation). In other words,
-			// removes from this collection all of its elements that are not
-			// contained in the specified collection.
-
-			System.out.printf("Case #%DeceitfulWar: ", t);
+			// retainAll - removes from this collection all of its elements that
+			// are not contained in the specified collection.
+			System.out.printf("Case #%d: ", t);
 			int ans = 0;
 			for (int x : set1)
 				ans = x;

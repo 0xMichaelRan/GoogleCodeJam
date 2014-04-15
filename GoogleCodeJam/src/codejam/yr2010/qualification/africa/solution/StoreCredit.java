@@ -13,9 +13,9 @@ import java.util.Map;
 
 /**
  * Store Credit solution
- * 
+ *
  * http://goo.gl/DXU5gu
- * 
+ *
  * @author Shazin Sadakath
  */
 public class StoreCredit {
@@ -74,7 +74,7 @@ public class StoreCredit {
 							map.get(String.valueOf(result[1])).get(0) + 1 };
 					insertionSort(finalValues);
 				}
-				bw.write(String.format("Case #%DeceitfulWar: %DeceitfulWar %DeceitfulWar\n", i + 1,
+				bw.write(String.format("Case #%d: %d %d\n", i + 1,
 						finalValues[0], finalValues[1]));
 				map.clear();
 			}
@@ -104,7 +104,7 @@ public class StoreCredit {
 
 	/**
 	 * Method to find sum uses O(N) in worse case given MagicTrick1 sorted array
-	 * 
+	 *
 	 * @param values
 	 *            - int Array
 	 * @param sum
@@ -130,7 +130,7 @@ public class StoreCredit {
 
 	/**
 	 * insertion sort algorithm uses O(N ^ 2) is worse case
-	 * 
+	 *
 	 * @param values
 	 *            - int Array to be sorted
 	 */
