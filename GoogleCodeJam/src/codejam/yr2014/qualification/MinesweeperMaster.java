@@ -18,7 +18,7 @@ public class MinesweeperMaster {
 	public static void main(String[] args) throws Exception {
 		MinesweeperMaster main = new MinesweeperMaster();
 		String problemIndex = "C";
-		String problemDataSet = "large";
+		String problemDataSet = "small";
 		main.run(problemIndex + "-" + problemDataSet + "-practice.in",
 				 "answer.out");
 		System.exit(0);
