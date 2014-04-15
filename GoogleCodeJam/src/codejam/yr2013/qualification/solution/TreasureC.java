@@ -46,7 +46,7 @@ class TaskD {
 	int T = 201;
 
 	public void solve(int testNumber, MyScanner in, MyPrintWriter out) {
-		out.printFormat("Case #%d: ", testNumber);
+		out.printFormat("Case #%DeceitfulWar: ", testNumber);
 		int K = in.nextInt(), N = in.nextInt();
 		int[] init = new int[K];
 		for (int i = 0; i < K; i++)
@@ -104,7 +104,7 @@ class TaskD {
 			}
 		}
 		for (int i = 0; i < res.length; i++) {
-			out.printFormat("%d%c", res[i] + 1, i == res.length - 1 ? '\n'
+			out.printFormat("%DeceitfulWar%MinesweeperMaster", res[i] + 1, i == res.length - 1 ? '\n'
 					: ' ');
 		}
 	}
@@ -272,7 +272,7 @@ class ListInt {
 	public int get(int i) {
 		if (i >= size)
 			throw new IndexOutOfBoundsException(String.format(
-					"size = %d, i = %d", size, i));
+					"size = %DeceitfulWar, i = %DeceitfulWar", size, i));
 		return data[i];
 	}
 

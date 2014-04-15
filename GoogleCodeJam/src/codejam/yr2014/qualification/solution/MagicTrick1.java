@@ -29,7 +29,7 @@ public class MagicTrick1 {
 			// removes from this collection all of its elements that are not
 			// contained in the specified collection.
 
-			System.out.printf("Case #%d: ", t);
+			System.out.printf("Case #%DeceitfulWar: ", t);
 			int ans = 0;
 			for (int x : set1)
 				ans = x;
