@@ -68,7 +68,7 @@ public class Osmos {
 			// if no elements can be absorbed, make the following decision
 			int deleteAll = ops + motes.length;
 			int keepAdding = solve(cur * 2 - 1, motes, ++ops);
-			// I made a stupiid mistake here. I must calculate the deleteAll
+			// I made a stupid mistake here. I must calculate the deleteAll
 			// first, then calculate keepAdding
 			// otherwise, the ops is being added by 1, which result in wrong
 			// answer.
