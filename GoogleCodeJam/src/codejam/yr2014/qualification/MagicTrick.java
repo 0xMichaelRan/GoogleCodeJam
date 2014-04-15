@@ -17,7 +17,7 @@ public class MagicTrick {
 		String problemIndex = "A";
 		String problemDataSet = "small";
 		main.run(problemIndex + "-" + problemDataSet + "-practice.in",
-				 "answer.out");
+				"answer.out");
 		System.exit(0);
 	}
 

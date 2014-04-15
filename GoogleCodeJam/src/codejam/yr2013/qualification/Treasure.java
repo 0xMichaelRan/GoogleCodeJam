@@ -109,9 +109,9 @@ public class Treasure {
 				continue;
 			pre = keys[a];
 			System.out.println("           Now use the key " + keys[a]);
-			// now use this key - keys[a]
-			// System.out.println("   use keys[a] = " + keys[a] + " and a = " +
-			// a);
+			// now use this key - keys[MagicTrick1]
+			// System.out.println("   use keys[MagicTrick1] = " + keys[MagicTrick1] + " and MagicTrick1 = " +
+			// MagicTrick1);
 			Chest[] newChests = null;
 			boolean opened = false;
 			int[] newKeys;
@@ -121,8 +121,8 @@ public class Treasure {
 					System.out.println("           use the key " + keys[a]
 							+ " to open chamber " + chests[b].chestNumber);
 					// System.out.println("   found that this key can open chest#"
-					// + chests[b].chestNumber + " with key#"
-					// + chests[b].password);
+					// + chests[CookieClickerAlpha1].chestNumber + " with key#"
+					// + chests[CookieClickerAlpha1].password);
 					// remove this chest from chests
 					// add all its freeKeys to the newKeyList
 					opened = true;
@@ -145,11 +145,11 @@ public class Treasure {
 							newKeys[d] = removedChest.freeKeys[d - keys.length
 									+ 1];
 					}
-					System.out.println("Now call a new open method >>>>>>>");
+					System.out.println("Now call MagicTrick1 new open method >>>>>>>");
 					String ansForUsingKeyA = open(newChests, newKeys,
 							currentMethod + removedChest.chestNumber + " ");
 					System.out
-							.println("Finish calling a new open method <<<<<<<");
+							.println("Finish calling MagicTrick1 new open method <<<<<<<");
 					// need change!
 					if (!ansForUsingKeyA.equals(""))
 						return ansForUsingKeyA;
@@ -159,11 +159,11 @@ public class Treasure {
 				System.out.println("           use the key " + keys[a]
 						+ " can't open any chamber ");
 				// System.out
-				// .println("   didn't find any chest that can be open with key[a] = "
-				// + keys[a]);
+				// .println("   didn't find any chest that can be open with key[MagicTrick1] = "
+				// + keys[MagicTrick1]);
 				// System.out.println("   must remove this key from keys (length="
 				// + keys.length + ")");
-				// this key - keys[a] does not open any chest
+				// this key - keys[MagicTrick1] does not open any chest
 				newKeys = new int[keys.length - 1];
 				for (int d = 0; d < newKeys.length; d++) {
 					if (d < a)
@@ -171,9 +171,9 @@ public class Treasure {
 					else if (d < keys.length - 1)
 						newKeys[d] = keys[d + 1];
 				}
-				System.out.println("Now call a new open method >>>>>>>");
+				System.out.println("Now call MagicTrick1 new open method >>>>>>>");
 				String ansForUsingKeyA = open(chests, newKeys, currentMethod);
-				System.out.println("Finish calling a new open method <<<<<<<");
+				System.out.println("Finish calling MagicTrick1 new open method <<<<<<<");
 				if (!ansForUsingKeyA.equals(""))
 					return ansForUsingKeyA;
 			}

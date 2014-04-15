@@ -103,7 +103,7 @@ public class StoreCredit {
 	}
 
 	/**
-	 * Method to find sum uses O(N) in worse case given a sorted array
+	 * Method to find sum uses O(N) in worse case given MagicTrick1 sorted array
 	 * 
 	 * @param values
 	 *            - int Array
