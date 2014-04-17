@@ -1,48 +1,48 @@
 package codejam.yr2013.round1A;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
+import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.math.MathContext;
 
 public class Bullseye {
-	static BufferedWriter writer;
-	static BufferedReader reader;
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
+		Bullseye main = new Bullseye();
+		String problemIndex = "A";
+		String problemDataSet = "large";
+		String input = problemIndex + "-" + problemDataSet + "-practice.in";
+		// String input = "test.in";
+		String output = "answer.out";
+		main.run(input, output);
+		System.exit(0);
+	}
 
-		File inFile = new File("test.in");
-		File outFile = new File("test.out");
-		StringBuilder solution = new StringBuilder();
-
-		FileWriter fwriter = new FileWriter(outFile);
-		writer = new BufferedWriter(fwriter);
-		FileReader freader = new FileReader(inFile);
-		reader = new BufferedReader(freader);
-
-		int numCases = 0;
-		numCases = Integer.parseInt(reader.readLine());
-		for (int ca = 0; ca < numCases; ca++) {
+	private void run(String input, String output) throws Exception {
+		BufferedReader in = new BufferedReader(new FileReader(new File(
+				Bullseye.class.getResource(input).toURI())));
+		PrintWriter out = new PrintWriter(new FileWriter(output));
+		int T = Integer.parseInt(in.readLine());
+		for (int t = 1; t <= T; t++) {
 			BigDecimal radius, total;
-			String[] input = reader.readLine().split(" ");
-			radius = new BigDecimal(input[0]);
-			total = new BigDecimal(input[1]);
-			String oneSolution;
+			String[] line = in.readLine().split(" ");
+			radius = new BigDecimal(line[0]);
+			total = new BigDecimal(line[1]);
+			String ret;
 			// this method may not be good, but can use though
 			// must read other people's solution and see
 			if (radius.compareTo(new BigDecimal("10000000000")) > 0)
-				oneSolution = solve2(ca, radius, total);
+				ret = solve2(t, radius, total);
 			else
-				oneSolution = solve(ca, radius, total);
-			solution.append(oneSolution + "\n");
-			System.out.println("Print to output file " + oneSolution);
+				ret = solve(t, radius, total);
+			System.out.println(ret);
+			out.write("" + ret + "\n");
 		}
-		writer.write(solution.toString());
-		writer.close();
+		in.close();
+		out.close();
 	}
 
 	private static String solve(int index, BigDecimal radius, BigDecimal total) {
@@ -76,7 +76,7 @@ public class Bullseye {
 					new BigDecimal(2).multiply(new BigDecimal(y)).multiply(
 							new BigDecimal(y)));
 		}
-		return "Case #" + ++index + ": " + y;
+		return "Case #" + index + ": " + y;
 	}
 
 	private static String solve2(int index, BigDecimal radius, BigDecimal total) {
@@ -92,6 +92,6 @@ public class Bullseye {
 					new BigDecimal(2).multiply(new BigDecimal(y)).multiply(
 							new BigDecimal(y)));
 		}
-		return "Case #" + ++index + ": " + --y;
+		return "Case #" + index + ": " + --y;
 	}
 }

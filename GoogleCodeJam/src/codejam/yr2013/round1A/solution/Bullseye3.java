@@ -7,7 +7,7 @@ import java.io.FileWriter;
 import java.io.Reader;
 import java.math.BigInteger;
 
-public class Bullseye {
+public class Bullseye3 {
 
 	private static final BigInteger TWO = BigInteger.valueOf(2);
 
