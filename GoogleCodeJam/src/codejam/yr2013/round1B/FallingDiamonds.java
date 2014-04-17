@@ -6,20 +6,23 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 
-import codejam.yr2014.qualification.MinesweeperMaster;
+import codejam.shared.CommonMethods;
 
 /**
  * @author Ran
  * @time
  */
+
 public class FallingDiamonds {
 
 	public static void main(String[] args) throws Exception {
 		FallingDiamonds main = new FallingDiamonds();
 		String problemIndex = "B";
-		String problemDataSet = "small";
-		main.run(problemIndex + "-" + problemDataSet + "-practice.in",
-				"answer.out");
+		String problemDataSet = "large";
+		// String input = problemIndex + "-" + problemDataSet + "-practice.in";
+		String input = "test.in";
+		String output = "answer.out";
+		main.run(input, output);
 		System.exit(0);
 	}
 
@@ -31,10 +34,9 @@ public class FallingDiamonds {
 		for (int t = 1; t <= T; t++) {
 			out.write("Case #" + t + ": ");
 			String[] lines = in.readLine().split("\\s");
-			System.out.println(lines[0]);
 			int n = Integer.parseInt(lines[0]);
-			int x = Integer.parseInt(lines[1]);
-			int y = Integer.parseInt(lines[2]);
+			int x = Math.abs(Integer.parseInt(lines[1]));
+			int y = Math.abs(Integer.parseInt(lines[2]));
 			double ret = solve(n, x, y);
 			System.out.println(ret);
 			out.write("" + ret + "\n");
@@ -44,7 +46,27 @@ public class FallingDiamonds {
 	}
 
 	private double solve(int n, int x, int y) {
-		return n * x * y;
+		int xy = x + y;
+		int m = n - ((xy * xy - xy) / 2);
+		int max = xy;
+		int min = Math.max(0, m - xy);
+		if (m <= 0)
+			return 0;
+		if (m >= 2 * xy + 1)
+			return 1;
+		if (x == 0)
+			return 0;
+		if (y < min)
+			return 1;
+		int combinations = 0;
+		for (int i = 0; i <= (y - min); i++) {
+			combinations += CommonMethods.binomCoeff(m - (2 * min), i);
+		}
+		System.out.println("m is " + m);
+		System.out.println("max is " + max);
+		System.out.println("min is " + min);
+		System.out.println("	combinations is " + combinations);
+		return 1 - (combinations / Math.pow(2, m - (2 * min)));
 	}
 
 }
