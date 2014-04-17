@@ -17,9 +17,10 @@ public class Template {
 		Template main = new Template();
 		String problemIndex = "A";
 		String problemDataSet = "small";
-		// main.run("test.in", "answer.out");
-		main.run(problemIndex + "-" + problemDataSet + "-practice.in",
-				"answer.out");
+		String input = problemIndex + "-" + problemDataSet + "-practice.in";
+		// String input = "test.in";
+		String output = "answer.out";
+		main.run(input, output);
 		System.exit(0);
 	}
 
