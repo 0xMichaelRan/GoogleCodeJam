@@ -34,7 +34,7 @@ public class Bullseye {
 	public static String getCircleCount(BigInteger r, BigInteger t) {
 		BigInteger b = r.multiply(new BigInteger("2")).subtract(
 				new BigInteger("1"));
-		BigInteger a = new BigInteger("2");
+		// BigInteger a = new BigInteger("2");
 		BigInteger ans = b.multiply(b).add(t.multiply(new BigInteger("8")));
 		ans = sqrt(ans).subtract(b).divide(new BigInteger("4"));
 		return ans.toString();
