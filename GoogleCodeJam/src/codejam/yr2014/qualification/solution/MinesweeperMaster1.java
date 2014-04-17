@@ -2,7 +2,7 @@ package codejam.yr2014.qualification.solution;
 
 import java.util.*;
 
-public class MinesweeperMaster {
+public class MinesweeperMaster1 {
 	static char MINE = '*', PLAYER = 'c', EMPTY = '.';
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
