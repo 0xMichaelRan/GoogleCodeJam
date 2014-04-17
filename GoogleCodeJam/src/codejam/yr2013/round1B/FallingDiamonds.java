@@ -19,8 +19,8 @@ public class FallingDiamonds {
 		FallingDiamonds main = new FallingDiamonds();
 		String problemIndex = "B";
 		String problemDataSet = "large";
-		// String input = problemIndex + "-" + problemDataSet + "-practice.in";
-		String input = "test.in";
+		String input = problemIndex + "-" + problemDataSet + "-practice.in";
+		// String input = "test.in";
 		String output = "answer.out";
 		main.run(input, output);
 		System.exit(0);
@@ -54,14 +54,25 @@ public class FallingDiamonds {
 			return 0;
 		if (m >= 2 * xy + 1)
 			return 1;
+		// if the number of nodes in current level exceeds possible limit
+		// then return either 0 or 1
+
 		if (x == 0)
 			return 0;
+		// otherwise, if x=0, this node shall always be the last to place
+		// so return 0
+
 		if (y < min)
 			return 1;
+		if (y >= m)
+			return 0;
+		// this is 2 special case. Think about it.
+
 		int combinations = 0;
 		for (int i = 0; i <= (y - min); i++) {
 			combinations += CommonMethods.binomCoeff(m - (2 * min), i);
 		}
+		System.out.println("xy is " + xy);
 		System.out.println("m is " + m);
 		System.out.println("max is " + max);
 		System.out.println("min is " + min);
