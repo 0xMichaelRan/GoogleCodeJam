@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 
+import codejam.shared.CommonMethods;
+
 /**
  * @author Ran
  * @time
@@ -16,6 +18,7 @@ public class FallingDiamonds {
 		FallingDiamonds main = new FallingDiamonds();
 		String problemIndex = "B";
 		String problemDataSet = "small";
+		// main.run("test.in", "answer.out");
 		main.run(problemIndex + "-" + problemDataSet + "-practice.in",
 				"answer.out");
 		System.exit(0);
@@ -29,10 +32,9 @@ public class FallingDiamonds {
 		for (int t = 1; t <= T; t++) {
 			out.write("Case #" + t + ": ");
 			String[] lines = in.readLine().split("\\s");
-			System.out.println(lines[0]);
 			int n = Integer.parseInt(lines[0]);
-			int x = Integer.parseInt(lines[1]);
-			int y = Integer.parseInt(lines[2]);
+			int x = Math.abs(Integer.parseInt(lines[1]));
+			int y = Math.abs(Integer.parseInt(lines[2]));
 			double ret = solve(n, x, y);
 			System.out.println(ret);
 			out.write("" + ret + "\n");
@@ -42,7 +44,25 @@ public class FallingDiamonds {
 	}
 
 	private double solve(int n, int x, int y) {
-		return n * x * y;
+		int xy = x + y;
+		int m = n - ((xy * xy - xy) / 2);
+		int max = xy;
+		int min = Math.max(0, m - xy);
+		if (m <= 0)
+			return 0;
+		if (m >= 2 * xy + 1)
+			return 1;
+		if (x == 0)
+			return 0;
+		if (y < min)
+			return 1;
+		int combinations = 0;
+		for (int i = 0; i <= (y - min); i++) {
+			combinations += CommonMethods.binomCoeff(max - min, i);
+		}
+		// System.out.println("combinations is " + combinations);
+		// System.out.println("max - min is " + (max - min));
+		return 1 - (combinations / Math.pow(2, max - min));
 	}
 
 }

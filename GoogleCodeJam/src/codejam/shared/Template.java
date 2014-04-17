@@ -1,4 +1,4 @@
-package codejam.template;
+package codejam.shared;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -17,6 +17,7 @@ public class Template {
 		Template main = new Template();
 		String problemIndex = "A";
 		String problemDataSet = "small";
+		// main.run("test.in", "answer.out");
 		main.run(problemIndex + "-" + problemDataSet + "-practice.in",
 				"answer.out");
 		System.exit(0);
