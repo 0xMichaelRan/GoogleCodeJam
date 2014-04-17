@@ -12,15 +12,17 @@ import codejam.shared.CommonMethods;
  * @author Ran
  * @time
  */
+
 public class FallingDiamonds {
 
 	public static void main(String[] args) throws Exception {
 		FallingDiamonds main = new FallingDiamonds();
 		String problemIndex = "B";
-		String problemDataSet = "small";
-		// main.run("test.in", "answer.out");
-		main.run(problemIndex + "-" + problemDataSet + "-practice.in",
-				"answer.out");
+		String problemDataSet = "large";
+		// String input = problemIndex + "-" + problemDataSet + "-practice.in";
+		String input = "test.in";
+		String output = "answer.out";
+		main.run(input, output);
 		System.exit(0);
 	}
 
@@ -58,11 +60,13 @@ public class FallingDiamonds {
 			return 1;
 		int combinations = 0;
 		for (int i = 0; i <= (y - min); i++) {
-			combinations += CommonMethods.binomCoeff(max - min, i);
+			combinations += CommonMethods.binomCoeff(m - (2 * min), i);
 		}
-		// System.out.println("combinations is " + combinations);
-		// System.out.println("max - min is " + (max - min));
-		return 1 - (combinations / Math.pow(2, max - min));
+		System.out.println("m is " + m);
+		System.out.println("max is " + max);
+		System.out.println("min is " + min);
+		System.out.println("	combinations is " + combinations);
+		return 1 - (combinations / Math.pow(2, m - (2 * min)));
 	}
 
 }
