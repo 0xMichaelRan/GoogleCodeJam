@@ -10,6 +10,7 @@ import java.io.PrintWriter;
  * @author Ran
  * @time
  */
+
 public class Template {
 
 	public static void main(String[] args) throws Exception {
@@ -29,7 +30,7 @@ public class Template {
 		for (int t = 1; t <= T; t++) {
 			out.write("Case #" + t + ": ");
 			String[] lines = in.readLine().split("\\s");
-
+			lines[0].length();
 			String ret = solve();
 			System.out.println(ret);
 			out.write("" + ret + "\n");
@@ -41,5 +42,4 @@ public class Template {
 	private String solve() {
 		return "";
 	}
-
 }

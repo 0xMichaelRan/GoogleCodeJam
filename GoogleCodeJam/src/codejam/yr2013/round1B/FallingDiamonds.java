@@ -6,8 +6,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 
-import codejam.yr2014.qualification.MinesweeperMaster;
-
 /**
  * @author Ran
  * @time
