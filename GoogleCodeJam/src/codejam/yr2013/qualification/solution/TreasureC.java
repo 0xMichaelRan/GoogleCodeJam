@@ -18,7 +18,6 @@ import java.util.NoSuchElementException;
  * @author ogiekako
  */
 public class TreasureC {
-	@SuppressWarnings("resource")
 	public static void main(String[] args) {
 		InputStream inputStream;
 		try {
