@@ -16,8 +16,11 @@ public class Bullseye {
 		String problemDataSet = "large";
 		String input = problemIndex + "-" + problemDataSet + "-practice.in";
 		// String input = "test.in";
-		String output = "answer.out";
+		String output = "test.out";
+		long startTime = System.currentTimeMillis();
 		main.run(input, output);
+		System.out.println("Total time = "
+				+ (System.currentTimeMillis() - startTime));
 		System.exit(0);
 	}
 
@@ -60,16 +63,6 @@ public class Bullseye {
 		BigDecimal realTotal = part1.multiply(new BigDecimal(y)).add(
 				new BigDecimal(2).multiply(new BigDecimal(y)).multiply(
 						new BigDecimal(y)));
-		// System.out.println("            radius = " + radius);
-		// System.out.println("            total = " + total);
-		// System.out.println("            " + part1);
-		// System.out.println("            " + part2);
-		// System.out.println("            " + part3);
-		// System.out.println("            " + part4);
-		// System.out.println("            " + part5);
-		// System.out.println("            y = " + y);
-		// System.out.println("            realTotal = " + realTotal);
-		// System.out.println("            total = " + total);
 		while (realTotal.compareTo(total) > 0) {
 			y--;
 			realTotal = part1.multiply(new BigDecimal(y)).add(

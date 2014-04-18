@@ -12,6 +12,21 @@ import java.math.BigInteger;
  *       http://code.antonio081014.com/2013/04/google-code-jam-round1-2013.html
  */
 
+/*
+ * Comment by Ran:
+ * 
+ * This is a very interesting method.
+ * 
+ * Basically he set a left pointer and a right pointer. Check is the mid point
+ * is the answer. If not, the left-right range is updated with only half the
+ * size of previous time
+ * 
+ * This is kind of like testing out answer one by one, but much optimized. Thus
+ * time complexity if reduced from linear to log(input)
+ * 
+ * BTW, my solution was find answer directly by method function
+ */
+
 public class Bullseye1 {
 
 	BigInteger two = new BigInteger("2");
@@ -24,7 +39,7 @@ public class Bullseye1 {
 
 	private void run() throws Exception {
 		BufferedReader in = new BufferedReader(new FileReader("test.in"));
-		PrintWriter out = new PrintWriter(new FileWriter("test.txt"));
+		PrintWriter out = new PrintWriter(new FileWriter("answer.out"));
 		int T = Integer.parseInt(in.readLine());
 		for (int t = 1; t <= T; t++) {
 			out.write("Case #" + t + ": ");
