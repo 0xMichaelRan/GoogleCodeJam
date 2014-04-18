@@ -20,7 +20,10 @@ public class Template {
 		String input = problemIndex + "-" + problemDataSet + "-practice.in";
 		// String input = "test.in";
 		String output = "test.out";
+		long startTime = System.currentTimeMillis();
 		main.run(input, output);
+		System.out.println("Total time = "
+				+ (System.currentTimeMillis() - startTime));
 		System.exit(0);
 	}
 

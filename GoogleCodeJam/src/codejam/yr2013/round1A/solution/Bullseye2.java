@@ -7,36 +7,26 @@ import java.io.FileWriter;
 import java.io.Reader;
 import java.math.BigInteger;
 
+import codejam.shared.CommonMethods;
+
+/*
+ * Comment from Ran:
+ * 
+ * This is same as my method
+ * Except that he have a better sqrt(BigInteger) method but I don't have
+ * 
+ * I have put the sqrt method in a common class, for future use.
+ */
+
 public class Bullseye2 {
 
 	private static final BigInteger TWO = BigInteger.valueOf(2);
-
-	private static boolean isSqrt(BigInteger n, BigInteger root) {
-		final BigInteger lowerBound = root.pow(2);
-		final BigInteger upperBound = root.add(BigInteger.ONE).pow(2);
-		return lowerBound.compareTo(n) <= 0 && n.compareTo(upperBound) < 0;
-	}
-
-	public static BigInteger sqrt(BigInteger n) {
-		if (n.signum() >= 0) {
-			final int bitLength = n.bitLength();
-			BigInteger root = BigInteger.ONE.shiftLeft(bitLength / 2);
-
-			while (!isSqrt(n, root)) {
-				root = root.add(n.divide(root)).divide(TWO);
-			}
-			return root;
-		} else {
-			throw new ArithmeticException("square root of negative number");
-		}
-	}
+	private static BufferedReader bufReader;
 
 	public static String getCircleCount(BigInteger r, BigInteger t) {
-		BigInteger b = r.multiply(new BigInteger("2")).subtract(
-				new BigInteger("1"));
-		// BigInteger MagicTrick1 = new BigInteger("2");
+		BigInteger b = r.multiply(TWO).subtract(new BigInteger("1"));
 		BigInteger ans = b.multiply(b).add(t.multiply(new BigInteger("8")));
-		ans = sqrt(ans).subtract(b).divide(new BigInteger("4"));
+		ans = CommonMethods.sqrt(ans).subtract(b).divide(new BigInteger("4"));
 		return ans.toString();
 	}
 
@@ -44,12 +34,12 @@ public class Bullseye2 {
 		try {
 			long startTime = System.currentTimeMillis();
 			Reader reader = new FileReader("test.in");
-			BufferedReader bufReader = new BufferedReader(reader);
+			bufReader = new BufferedReader(reader);
 			String x = bufReader.readLine();
 			int numOfTestCases = Integer.parseInt(x);
 			int count = 0;
 
-			File file = new File("test.out");
+			File file = new File("answer.out");
 			FileWriter writer = new FileWriter(file);
 			for (count = 1; count <= numOfTestCases; count++) {
 				String line = bufReader.readLine();
