@@ -19,7 +19,7 @@ public class Template {
 		String problemDataSet = "small";
 		String input = problemIndex + "-" + problemDataSet + "-practice.in";
 		// String input = "test.in";
-		String output = "answer.out";
+		String output = "test.out";
 		main.run(input, output);
 		System.exit(0);
 	}
@@ -31,9 +31,9 @@ public class Template {
 		int T = Integer.parseInt(in.readLine());
 		for (int t = 1; t <= T; t++) {
 			out.write("Case #" + t + ": ");
-			String[] lines = in.readLine().split("\\s");
-			lines[0].length();
-			String ret = solve();
+			String[] line = in.readLine().split("\\s");
+			line[0].length();
+			int ret = solve();
 			System.out.println(ret);
 			out.write("" + ret + "\n");
 		}
@@ -41,7 +41,7 @@ public class Template {
 		out.close();
 	}
 
-	private String solve() {
-		return "";
+	private int solve() {
+		return 0;
 	}
 }
