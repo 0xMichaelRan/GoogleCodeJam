@@ -10,6 +10,7 @@ import java.math.BigInteger;
  * @author antonio081014
  * @time Apr 28, 2013, 2:28:09 PM
  */
+
 public class ManageYourEnergy1 {
 	BigInteger two = new BigInteger("2");
 
@@ -20,8 +21,8 @@ public class ManageYourEnergy1 {
 	}
 
 	private void run() throws Exception {
-		BufferedReader in = new BufferedReader(new FileReader("input.in"));
-		PrintWriter out = new PrintWriter(new FileWriter("output.txt"));
+		BufferedReader in = new BufferedReader(new FileReader("test.in"));
+		PrintWriter out = new PrintWriter(new FileWriter("answer.out"));
 		int T = Integer.parseInt(in.readLine());
 		for (int t = 1; t <= T; t++) {
 			out.write("Case #" + t + ": ");
