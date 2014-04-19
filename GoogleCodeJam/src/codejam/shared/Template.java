@@ -33,6 +33,7 @@ public class Template {
 		PrintWriter out = new PrintWriter(new FileWriter(output));
 		int T = Integer.parseInt(in.readLine());
 		for (int t = 1; t <= T; t++) {
+			System.out.print("Case #" + t + ": ");
 			out.write("Case #" + t + ": ");
 			String[] line = in.readLine().split("\\s");
 			line[0].length();
