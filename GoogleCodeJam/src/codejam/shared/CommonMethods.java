@@ -2,10 +2,18 @@ package codejam.shared;
 
 import java.math.BigInteger;
 
+/* Methods in this class includes:
+ * 
+ * binomCoeff - binomial coefficient, which is the "n pick k" combinations. 
+ * 				eg C(5,2) = 10 which means pick 2 out of 5
+ * sqrt - return the BigInteger sqrt value
+ * 
+ */
+
 public class CommonMethods {
 
 	private static final BigInteger TWO = BigInteger.valueOf(2);
-	
+
 	public static double binomCoeff(double n, double k) {
 		double result = 1;
 		for (int i = 1; i < k + 1; i++) {
@@ -37,6 +45,6 @@ public class CommonMethods {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(binomCoeff(1, 1));
+		System.out.println(binomCoeff(5, 2));
 	}
 }
