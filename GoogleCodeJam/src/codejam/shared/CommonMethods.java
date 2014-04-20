@@ -12,7 +12,9 @@ import java.math.BigInteger;
 
 public class CommonMethods {
 
-	private static final BigInteger TWO = BigInteger.valueOf(2);
+	public static void main(String[] args) {
+		System.out.println(sqrt(BigInteger.valueOf(16)));
+	}
 
 	public static double binomCoeff(double n, double k) {
 		double result = 1;
@@ -20,12 +22,6 @@ public class CommonMethods {
 			result *= (n - i + 1) / i;
 		}
 		return result;
-	}
-
-	private static boolean isSqrt(BigInteger n, BigInteger root) {
-		final BigInteger lowerBound = root.pow(2);
-		final BigInteger upperBound = root.add(BigInteger.ONE).pow(2);
-		return lowerBound.compareTo(n) <= 0 && n.compareTo(upperBound) < 0;
 	}
 
 	public static BigInteger sqrt(BigInteger n) {
@@ -36,7 +32,7 @@ public class CommonMethods {
 			BigInteger root = BigInteger.ONE.shiftLeft(bitLength / 2);
 
 			while (!isSqrt(n, root)) {
-				root = root.add(n.divide(root)).divide(TWO);
+				root = root.add(n.divide(root)).divide(BigInteger.valueOf(2));
 			}
 			return root;
 		} else {
@@ -44,7 +40,25 @@ public class CommonMethods {
 		}
 	}
 
-	public static void main(String[] args) {
-		System.out.println(binomCoeff(5, 2));
+	private static boolean isSqrt(BigInteger n, BigInteger root) {
+		final BigInteger lowerBound = root.pow(2);
+		final BigInteger upperBound = root.add(BigInteger.ONE).pow(2);
+		return lowerBound.compareTo(n) <= 0 && n.compareTo(upperBound) < 0;
+	}
+
+	public static int findMaxValueFromArray(int[] array) {
+		return array[findMaxIndexFromArray(array)];
+	}
+
+	public static int findMaxIndexFromArray(int[] array) {
+		int max = array[0];
+		int maxIndex = 0;
+		for (int i = 0; i < array.length; i++) {
+			if (array[i] > max) {
+				max = array[i];
+				maxIndex = i;
+			}
+		}
+		return maxIndex;
 	}
 }

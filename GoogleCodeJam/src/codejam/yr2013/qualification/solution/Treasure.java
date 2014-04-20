@@ -1,193 +1,266 @@
 package codejam.yr2013.qualification.solution;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
- * @Author: Ivan Voroshilin
- * @Date: April 13 2013 Problem A Small inputs Comment: Poor time complexity -
- *        O(n!) permutations
+ * 
+ * @author jean
  */
 public class Treasure {
 
-	private int numOfKeysIHave;
-	private int numOfChests;
-	private ArrayList<Integer> keyTypesIHave = new ArrayList<Integer>();
-	private List<Chest> chests = new ArrayList<Chest>();
-	private Set<String> paths = new HashSet<String>();
+	public static void main(String[] args) {
 
-	private static class Chest {
-		Integer keyTypeToOpen;
-		List<Integer> keyTypesInside;
+		// String base = "/home/jean/gcj2013/treasure/";
+		String input = "test.in";
+		String output = "test.out";
 
-		public Chest(int keyTypeToOpen) {
-			keyTypesInside = new ArrayList<Integer>();
-			this.keyTypeToOpen = keyTypeToOpen;
+		try {
+			Scanner sc = new Scanner(new FileReader(input));
+			PrintWriter pw = new PrintWriter(output);
+
+			int n = sc.nextInt();
+			sc.nextLine();
+			for (int c = 0; c < n; c++) {
+				System.out.println("Test case " + (c + 1) + "...");
+				pw.print("Case #" + (c + 1) + ": ");
+				test(sc, pw);
+				pw.println();
+			}
+			pw.println();
+			pw.flush();
+			pw.close();
+			sc.close();
+		} catch (FileNotFoundException ex) {
+			Logger.getLogger(Treasure.class.getName()).log(Level.SEVERE, null,
+					ex);
 		}
 
-		public void addKeyType(int keyTypeInside) {
-			keyTypesInside.add(keyTypeInside);
-		}
-
-		public boolean isEmpty() {
-			return keyTypesInside.isEmpty();
-		}
 	}
 
-	private void solve(Scanner sc, PrintWriter pw) {
+	private static class Found extends Exception {
+	}
 
-		// 1. Create data structures:
-		numOfKeysIHave = sc.nextInt();
-		System.out.println("numOfKeysIHave =  " + numOfKeysIHave);
-		numOfChests = sc.nextInt();
+	private static void test(Scanner sc, PrintWriter pw) {
+		// reading input
+		int K = sc.nextInt();
+		int N = sc.nextInt();
 
-		System.out.println("numOfChests =  " + numOfChests);
-
-		keyTypesIHave = new ArrayList<Integer>();
-
-		for (int i = 0; i < numOfKeysIHave; i++) {
-			keyTypesIHave.add(sc.nextInt());
+		int[] cles = new int[201];
+		// Reading starting keys
+		for (int k = 0; k < K; k++) {
+			cles[sc.nextInt()]++;
 		}
 
-		System.out.println("keyTypesIHave =  " + keyTypesIHave.toString());
+		int[] chestTypes = new int[N];
+		int[][] map = new int[N][];
+		// Reading the map
+		for (int n = 0; n < N; n++) {
+			int Ti = sc.nextInt();
+			int Ki = sc.nextInt();
+			chestTypes[n] = Ti;
+			map[n] = new int[Ki];
+			// keys for this chest
+			for (int k = 0; k < Ki; k++) {
+				map[n][k] = sc.nextInt();
+			}
+		}
 
-		for (int i = 0; i < numOfChests; i++) {
-
-			Chest chest = new Chest(sc.nextInt());
-			System.out.println("Creating new chest " + (i + 1));
-
-			int numOfkeysInside = sc.nextInt();
-			System.out.println("numOfkeysInside =  " + numOfkeysInside);
-
-			if (numOfkeysInside > 0)
-				for (int j = 0; j < numOfkeysInside; j++) {
-					chest.addKeyType(sc.nextInt());
+		// First, some stats.
+		for (int i = 0; i < cles.length; i++) {
+			int n = 0;
+			int m = 0;
+			for (int j = 0; j < chestTypes.length; j++) {
+				if (chestTypes[j] == i) {
+					n++;
 				}
+				for (int p = 0; p < map[j].length; p++) {
+					if (map[j][p] == i) {
+						m++;
+					}
+				}
+			}
 
-			System.out.println("keysInside =  "
-					+ chest.keyTypesInside.toString());
-			System.out.println("Chest's key =  " + chest.keyTypeToOpen);
-			System.out.println();
+			m += cles[i];
 
-			chests.add(chest);
+			// if(n!=0) {
+			// System.out.println("Chest needing key " + i + " : " + n);
+			// System.out.println("Available keys " + i + " : " + m);
+			// }
+			if (n > m) {
+				// We'll never find that many keys: impossible
+				System.out.println("Not enough keys");
+				pw.print("IMPOSSIBLE");
+				return;
+			}
 		}
 
-		System.out.println();
-		System.out.println("-----------------SOLVING---------------------");
-		System.out.println();
+		// Now, let's explore the graph.
+		// We'll store the moves done so far in arrays, in order to backtrack
 
-		// 2. Solve:
-		traverse();
+		// List of the opened chests, from the start
+		int[] chestsOpened = new int[N];
+		boolean[] isOpened = new boolean[N];
+		for (int i = 0; i < N; i++) {
+			isOpened[i] = false;
+		}
 
-		List<String> listOfPaths = new ArrayList<String>(paths);
-		Collections.sort(listOfPaths);
-		System.out.println("The answer is: " + listOfPaths.get(0).toString());
+		try {
+			solve(pw, cles, chestTypes, map, chestsOpened, isOpened, N, 0);
+		} catch (Found ex) {
+		}
 
-		if (listOfPaths.get(0).isEmpty()) {
-			pw.println("IMPOSSIBLE");
+	}
+
+	// static int c = 0;
+
+	private static void solve(PrintWriter pw, int[] cles, int[] chestTypes,
+			int[][] map, int[] chestsOpened, boolean[] isOpened, int N, int s)
+			throws Found {
+		// c++;
+		// if (c % 10000 == 0) {
+		// System.out.println(c + " : " + s + " : ");
+		// for (int i = 0; i < s; i++) {
+		// System.out.print(chestsOpened[i] + " ");
+		// }
+		// }
+
+		// System.out.print("Keys : ");
+		// for (int i = 0; i < cles.length; i++) {
+		// if (cles[i] != 0) {
+		// for (int k = 0; k < cles[i]; k++) {
+		// System.out.print(i + " ");
+		// }
+		// }
+		// }
+		// System.out.println("");
+
+		// If we opened all the chests, it's a win !
+		if (N == s) {
+			// We print the solution
+			for (int i = 0; i < N; i++) {
+				pw.print((chestsOpened[i] + 1) + " ");
+			}
+			throw new Found();
+		}
+
+		// To prune the research tree, we check that the situation isn't already
+		// hopeless.
+		if (!accessCheck(N, cles, chestTypes, map, isOpened)) {
+			// System.out.println("Backtracking2");
+			// If s is 0, it means the problem is impossible
+			if (s == 0) {
+				pw.print("IMPOSSIBLE");
+				return;
+			}
+			// Else we backtrack
+			// We regain one key
+			int co = chestsOpened[s - 1];
+			cles[chestTypes[co]]++;
+			// And lose some (or not)
+			for (int k = 0; k < map[co].length; k++) {
+				cles[map[co][k]]--;
+			}
+			isOpened[co] = false;
 			return;
 		}
 
-		pw.println(listOfPaths.get(0).replace("", " ").trim());
+		// Find the first chest that can be opened
+		for (int i = 0; i < N; i++) {
+			if (cles[chestTypes[i]] > 0 && !isOpened[i]) {
+				// We open it
+				// We lose one key
+				cles[chestTypes[i]]--;
+				// And find some (or not)
+				for (int k = 0; k < map[i].length; k++) {
+					cles[map[i][k]]++;
+				}
+				// We store the move we just did
+				chestsOpened[s] = i;
+				isOpened[i] = true;
+				// And we solve from there
+				// System.out.println("Exploring chest " + i);
+				solve(pw, cles, chestTypes, map, chestsOpened, isOpened, N,
+						s + 1);
+			}
+		}
+		// If we arrive here, no chest could be opened, we backtrack.
+		// If s is 0, it means the problem is impossible
+		if (s == 0) {
+			pw.print("IMPOSSIBLE");
+			return;
+		}
+		// System.out.println("Backtracking");
+		// Else, we undo the previous move
+		// We regain one key
+		int co = chestsOpened[s - 1];
+		cles[chestTypes[co]]++;
+		// And lose some (or not)
+		for (int k = 0; k < map[co].length; k++) {
+			cles[map[co][k]]--;
+		}
+		isOpened[co] = false;
 	}
 
-	private void traverse() {
-		List<Integer> list = new ArrayList<Integer>();
+	private static boolean accessCheck(int N, int[] cles, int[] chestTypes,
+			int[][] map, boolean[] isOpened) {
+		List<Integer> keysl = new ArrayList<Integer>(50);
+		boolean keysv[] = new boolean[201];
+		boolean chestv[] = new boolean[N];
 
-		for (int i = 0; i < numOfChests; i++) {
-			list.add(i);
-		}
-		permute(list, 0);
-	}
-
-	private void permute(List<Integer> list, int k) {
-
-		for (int i = k; i < list.size(); i++) {
-			java.util.Collections.swap(list, i, k);
-			permute(list, k + 1);
-			java.util.Collections.swap(list, k, i);
+		// At first, no keys visited
+		for (int i = 0; i < keysv.length; i++) {
+			keysv[i] = false;
 		}
 
-		if (k == list.size() - 1) {
-			System.out.println("--------------------------------------: "
-					+ list.toString());
-			paths.add(traverse(list));
+		// At first, no chests visited, unless the chest is already opened
+		for (int i = 0; i < chestv.length; i++) {
+			chestv[i] = isOpened[i];
 		}
-	}
 
-	private String traverse(List<Integer> listOfChests) {
+		// We visit keys in hand
+		for (int k = 0; k < cles.length; k++) {
+			if (cles[k] > 0) {
+				keysl.add(k);
+				keysv[k] = true;
+			}
+		}
 
-		List<Integer> keyTypesIHaveCopy = new ArrayList<Integer>(keyTypesIHave);
-
-		int chestCounter = 0;
-		int openChests = 0;
-
-		int loopCounter = 0;
-
-		String sequence = "";
-
-		while (keyTypesIHaveCopy.size() > 0 && chestCounter < numOfChests) {
-
-			loopCounter++;
-
-			if (loopCounter > 100) {
-				break;
+		while (!keysl.isEmpty()) {
+			int k = keysl.remove(0);
+			// For every key in the queue, we visit the matching chests (not
+			// already opened)
+			for (int i = 0; i < chestv.length; i++) {
+				if (!chestv[i] && chestTypes[i] == k) {
+					// Add all the keys in the queue
+					for (int l = 0; l < map[i].length; l++) {
+						int kl = map[i][l];
+						if (!keysv[kl]) {
+							keysl.add(kl);
+							keysv[kl] = true;
+						}
+					}
+					// Mark the chest as visited
+					chestv[i] = true;
+				}
 			}
 
-			Integer chestNumber = listOfChests.get(chestCounter);
-			Chest chest = chests.get(chestNumber);
+		}
 
-			if (keyTypesIHaveCopy.size() == 1 && chest.isEmpty()
-					&& openChests == 0) {
-				chestCounter = incrementChestNumber(chestCounter, numOfChests);
-				continue;
+		// We return false if one chest wasn't visited
+		for (int i = 0; i < chestv.length; i++) {
+			if (!chestv[i]) {
+				// System.out.println("Chest " + i + " not accessible.");
+				return false;
 			}
-
-			if (keyTypesIHaveCopy.contains(chest.keyTypeToOpen)) {
-				System.out.println("keyTypesIHave = "
-						+ keyTypesIHaveCopy.toString()
-						+ " chest.keyTypeToOpen = " + chest.keyTypeToOpen);
-				keyTypesIHaveCopy.remove(chest.keyTypeToOpen);
-				keyTypesIHaveCopy
-						.addAll(chests.get(chestNumber).keyTypesInside);
-				System.out.println("And now keyTypesIHave = "
-						+ keyTypesIHaveCopy.toString());
-				System.out.println("Chest " + (chestNumber + 1) + " is open");
-				openChests++;
-				sequence += (chestNumber + 1);
-			}
-
-			chestCounter = incrementChestNumber(chestCounter, numOfChests);
 		}
 
-		return sequence;
+		return true;
 	}
-
-	private static int incrementChestNumber(int currentChestNum, int limit) {
-		if (currentChestNum == (limit - 1)) {
-			return 0;
-		}
-		return ++currentChestNum;
-	}
-
-	public static void main(String[] args) throws Exception {
-
-		Scanner sc = new Scanner(new FileReader("test.in"));
-		PrintWriter pw = new PrintWriter(new FileWriter("output.txt"));
-
-		int caseCnt = sc.nextInt();
-		sc.nextLine();
-		for (int caseNum = 0; caseNum < caseCnt; caseNum++) {
-			System.out.println("Processing test case " + (caseNum + 1));
-			pw.print("Case #" + (caseNum + 1) + ": ");
-			new Treasure().solve(sc, pw);
-		}
-
-		pw.flush();
-		pw.close();
-		sc.close();
-	}
-
 }
