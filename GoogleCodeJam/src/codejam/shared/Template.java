@@ -36,8 +36,8 @@ public class Template {
 			System.out.print("Case #" + t + ": ");
 			out.write("Case #" + t + ": ");
 			String[] line = in.readLine().split("\\s");
-			line[0].length();
-			int ret = solve();
+
+			String ret = solve(line);
 			System.out.println(ret);
 			out.write("" + ret + "\n");
 		}
@@ -45,7 +45,7 @@ public class Template {
 		out.close();
 	}
 
-	private int solve() {
-		return 0;
+	private String solve(String[] line) {
+		return line[0];
 	}
 }
