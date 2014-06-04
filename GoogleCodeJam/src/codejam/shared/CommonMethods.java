@@ -4,7 +4,8 @@ import java.math.BigInteger;
 
 /* Methods in this class includes:
  *
- * binomCoeff - binomial coefficient, which is the "n pick k" combinations.	Eg C(5,2) = 10 which means pick 2 out of 5
+ * binomCoeff - binomial coefficient, which is the "n pick k" combinations.	
+ * 				Eg C(5,2) = 10 which means pick 2 out of 5
  * sqrt - return the BigInteger sqrt value
  * findMaxValueFromArray
  * findMaxIndexFromArray
